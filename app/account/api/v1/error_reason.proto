@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package app.account.api.v1;
+
+option go_package = "yaosiqi525/cloud-platform/app/account/api/v1;v1";
+option java_multiple_files = true;
+option java_package = "app.account.api.v1";
+
+enum ErrorReason {
+  USER_IS_EXIST = 0;
+  USER_NOT_FOUND = 1;
+}
