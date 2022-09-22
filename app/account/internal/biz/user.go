@@ -16,7 +16,12 @@ var (
 
 // Account is a Account model.
 type Account struct {
-	Hello string
+	Account string
+	Name    string
+	Pwd     string
+	Salt    string
+	Status  int32
+	OrmModel
 }
 
 // AccountRepo is a Greater repo.
@@ -41,6 +46,6 @@ func NewAccountUsecase(repo AccountRepo, logger log.Logger) *AccountUsecase {
 
 // CreateAccount creates a Account, and returns the new Account.
 func (uc *AccountUsecase) CreateAccount(ctx context.Context, g *Account) (*Account, error) {
-	uc.log.WithContext(ctx).Infof("CreateAccount: %v", g.Hello)
+	uc.log.WithContext(ctx).Infof("CreateAccount: %v", g.Account)
 	return uc.repo.Save(ctx, g)
 }
