@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AccountClient interface {
-	CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...grpc.CallOption) (*CreateAccountReply, error)
+	CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...grpc.CallOption) (*CommonReply, error)
 	UpdateAccount(ctx context.Context, in *UpdateAccountRequest, opts ...grpc.CallOption) (*UpdateAccountReply, error)
 	DeleteAccount(ctx context.Context, in *DeleteAccountRequest, opts ...grpc.CallOption) (*DeleteAccountReply, error)
 	GetAccount(ctx context.Context, in *GetAccountRequest, opts ...grpc.CallOption) (*GetAccountReply, error)
@@ -37,8 +37,8 @@ func NewAccountClient(cc grpc.ClientConnInterface) AccountClient {
 	return &accountClient{cc}
 }
 
-func (c *accountClient) CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...grpc.CallOption) (*CreateAccountReply, error) {
-	out := new(CreateAccountReply)
+func (c *accountClient) CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...grpc.CallOption) (*CommonReply, error) {
+	out := new(CommonReply)
 	err := c.cc.Invoke(ctx, "/app.account.api.v1.Account/CreateAccount", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -86,7 +86,7 @@ func (c *accountClient) ListAccount(ctx context.Context, in *ListAccountRequest,
 // All implementations must embed UnimplementedAccountServer
 // for forward compatibility
 type AccountServer interface {
-	CreateAccount(context.Context, *CreateAccountRequest) (*CreateAccountReply, error)
+	CreateAccount(context.Context, *CreateAccountRequest) (*CommonReply, error)
 	UpdateAccount(context.Context, *UpdateAccountRequest) (*UpdateAccountReply, error)
 	DeleteAccount(context.Context, *DeleteAccountRequest) (*DeleteAccountReply, error)
 	GetAccount(context.Context, *GetAccountRequest) (*GetAccountReply, error)
@@ -98,7 +98,7 @@ type AccountServer interface {
 type UnimplementedAccountServer struct {
 }
 
-func (UnimplementedAccountServer) CreateAccount(context.Context, *CreateAccountRequest) (*CreateAccountReply, error) {
+func (UnimplementedAccountServer) CreateAccount(context.Context, *CreateAccountRequest) (*CommonReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAccount not implemented")
 }
 func (UnimplementedAccountServer) UpdateAccount(context.Context, *UpdateAccountRequest) (*UpdateAccountReply, error) {

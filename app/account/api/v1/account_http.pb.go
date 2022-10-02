@@ -22,7 +22,7 @@ const _ = http.SupportPackageIsVersion1
 const OperationAccountCreateAccount = "/app.account.api.v1.Account/CreateAccount"
 
 type AccountHTTPServer interface {
-	CreateAccount(context.Context, *CreateAccountRequest) (*CreateAccountReply, error)
+	CreateAccount(context.Context, *CreateAccountRequest) (*CommonReply, error)
 }
 
 func RegisterAccountHTTPServer(s *http.Server, srv AccountHTTPServer) {
@@ -44,13 +44,13 @@ func _Account_CreateAccount0_HTTP_Handler(srv AccountHTTPServer) func(ctx http.C
 		if err != nil {
 			return err
 		}
-		reply := out.(*CreateAccountReply)
+		reply := out.(*CommonReply)
 		return ctx.Result(200, reply)
 	}
 }
 
 type AccountHTTPClient interface {
-	CreateAccount(ctx context.Context, req *CreateAccountRequest, opts ...http.CallOption) (rsp *CreateAccountReply, err error)
+	CreateAccount(ctx context.Context, req *CreateAccountRequest, opts ...http.CallOption) (rsp *CommonReply, err error)
 }
 
 type AccountHTTPClientImpl struct {
@@ -61,8 +61,8 @@ func NewAccountHTTPClient(client *http.Client) AccountHTTPClient {
 	return &AccountHTTPClientImpl{client}
 }
 
-func (c *AccountHTTPClientImpl) CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...http.CallOption) (*CreateAccountReply, error) {
-	var out CreateAccountReply
+func (c *AccountHTTPClientImpl) CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...http.CallOption) (*CommonReply, error) {
+	var out CommonReply
 	pattern := "/account/v1/create"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationAccountCreateAccount))

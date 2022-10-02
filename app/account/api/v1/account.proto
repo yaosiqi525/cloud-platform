@@ -9,7 +9,7 @@ option java_multiple_files = true;
 option java_package = "app.account.api.v1";
 
 service Account {
-	rpc CreateAccount (CreateAccountRequest) returns (CreateAccountReply) {
+	rpc CreateAccount (CreateAccountRequest) returns (CommonReply) {
     option (google.api.http) = {
         // 定义一个 GET 接口，并且把 name 映射到 HelloRequest
         post: "/account/v1/create",
@@ -37,7 +37,10 @@ message CreateAccountRequest {
   OperatorInfo operator = 2;
 
 }
-message CreateAccountReply {}
+message CommonReply {
+  int32 code = 1;
+  string msg = 2;
+}
 
 message UpdateAccountRequest {}
 message UpdateAccountReply {}

@@ -7,6 +7,9 @@ option java_multiple_files = true;
 option java_package = "app.account.api.v1";
 
 enum ErrorReason {
-  USER_IS_EXIST = 0;
-  USER_NOT_FOUND = 1;
+  SUCCESS = 0;
+  UNKNOW = 500;
+  USER_IS_EXIST = 501;
+  USER_NOT_FOUND = 502;
+  
 }

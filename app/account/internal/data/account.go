@@ -22,19 +22,22 @@ func NewAccountRepo(data *Data, logger log.Logger) biz.AccountRepo {
 }
 
 func (r *accountRepo) Save(ctx context.Context, g *biz.Account) (*biz.Account, error) {
-	return g, nil
+	err := r.data.DataBase.Save(g).Error
+	return g, err
 }
 
 func (r *accountRepo) Update(ctx context.Context, g *biz.Account) (*biz.Account, error) {
 	return g, nil
 }
 
-func (r *accountRepo) FindByID(context.Context, int64) (*biz.Account, error) {
-	return nil, nil
+func (r *accountRepo) FindByID(ctx context.Context, id int64) (info *biz.Account, err error) {
+	err = r.data.DataBase.Where("id = ?", id).First(&info).Error
+	return info, err
 }
 
-func (r *accountRepo) ListByHello(context.Context, string) ([]*biz.Account, error) {
-	return nil, nil
+func (r *accountRepo) FindByAccount(ctx context.Context, account string) (info *biz.Account, err error) {
+	err = r.data.DataBase.Where("account = ?", account).First(&info).Error
+	return info, err
 }
 
 func (r *accountRepo) ListAll(context.Context) ([]*biz.Account, error) {
